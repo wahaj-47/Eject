@@ -13,13 +13,11 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(-forwardForce*Time.deltaTime, 0, 0);
 
         if(Input.touchCount > 0){
-
             touch  = Input.GetTouch(0);
 
             if(touch.phase == TouchPhase.Moved){
-                rb.AddForce(0, forwardForce*Time.deltaTime, 0);
+                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + touch.deltaPosition.x * 0.01f);
             }
-
         }
     }
 
