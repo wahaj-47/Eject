@@ -24,7 +24,7 @@ public class Floater : MonoBehaviour {
     }
      
     // Update is called once per frame
-    void Update () {
+    void FixedUpdate () {
         // Spin object around Y-Axis
         transform.Rotate(new Vector3(0f, Time.deltaTime * degreesPerSecond, 0f), Space.World);
  
