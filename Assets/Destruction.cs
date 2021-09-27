@@ -10,11 +10,13 @@ public class Destruction : MonoBehaviour
     public ShakePreset ShakePreset;
 
     private void OnCollisionEnter(Collision other) {
-        // Add extra force to resume faster
-        rb.AddForce(-1000*Time.deltaTime, 0, 0);
 
-        //Shake camera
-        MyShaker.Shake(ShakePreset);
+        if(!other.gameObject.CompareTag("Collectible")){
+            rb.AddForce(5,0,0);
+            //Shake camera
+            MyShaker.Shake(ShakePreset);
+            FindObjectOfType<AudioManager>().Play("Crash");
+        }
        
     }
 

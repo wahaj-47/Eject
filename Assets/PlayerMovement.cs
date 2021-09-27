@@ -37,7 +37,17 @@ public class PlayerMovement : MonoBehaviour
 	}
 
     private void Update() {
-         if(Input.touchCount > 0){
+
+
+        if(Input.GetKeyDown("a")){
+            OnSwipeLeft();
+        }
+
+        if(Input.GetKeyDown("d")){
+            OnSwipeRight();
+        }
+        
+        if(Input.touchCount > 0){
             foreach (Touch touch in Input.touches) {
                 if (touch.phase == TouchPhase.Began) {
                     fingerUpPos = touch.position;
@@ -67,14 +77,25 @@ public class PlayerMovement : MonoBehaviour
 
     void OnSwipeLeft ()
 	{
-		//Do something when swiped left
-        transform.DOMoveZ(transform.position.z-1.5f, 0.3f);
+        if(transform.position.z > -1.5f){
+		    //Do something when swiped left
+            Sequence rotationSequence = DOTween.Sequence();
+            rotationSequence.Append(transform.DORotate(new Vector3(transform.rotation.x-25.0f, transform.rotation.y, transform.rotation.z), 0.1f));
+            rotationSequence.Append(transform.DORotate(new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z), 0.1f));
+            transform.DOMoveZ(transform.position.z-1.5f, 0.3f);
+        }
 	}
 
 	void OnSwipeRight ()
 	{
-		//Do something when swiped right
-        transform.DOMoveZ(transform.position.z+1.5f, 0.3f);
+        if(transform.position.z < 1.5f){
+            //Do something when swiped right
+            Debug.Log(transform.rotation.x);
+            Sequence rotationSequence = DOTween.Sequence();
+            rotationSequence.Append(transform.DORotate(new Vector3(transform.rotation.x+25.0f, transform.rotation.y, transform.rotation.z), 0.1f));
+            rotationSequence.Append(transform.DORotate(new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z), 0.1f));
+            transform.DOMoveZ(transform.position.z+1.5f, 0.3f);
+        }
 	}
 
 }
